@@ -1,0 +1,27 @@
+.addPropery-card {
+  margin: auto;
+  width: 400px;
+  padding: 2rem 2rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  flex-direction: column;
+
+  border-radius: 15px;
+
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.addProperty-form-child {
+  width: 100%;
+}
+.addProperty-Form-input {
+  border: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 7px;
+  padding: 0.5rem;
+  width: 100% !important;
+  /* height: 200px; */
+  background-color: none;
+}

@@ -1,0 +1,25 @@
+#navbarScroll {
+  justify-content: end;
+}
+.navbar-textColor {
+  color: #f6f4eb !important;
+}
+.after-nav::after {
+  content: " ";
+  height: 2px;
+  background: #f8fae5;
+  display: block;
+  width: 0%;
+}
+
+.after-nav:hover::after {
+  width: 100%;
+  margin: auto;
+  transition: 1s ease;
+}
+
+/* background of button  */
+.bg-none {
+  background: none;
+  border: none;
+}

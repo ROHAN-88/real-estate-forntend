@@ -1,0 +1,39 @@
+.parentDivFirstSection {
+  height: 60svh;
+  /* width: 200svh; */
+  background-image: url("../../assets/imageofhouses.jpg");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.home-input {
+  border: none;
+  text-align: center;
+  background-color: none;
+  height: 5rem;
+  width: 35rem;
+  font-size: 2rem;
+  background-color: #f5f7f8;
+  border-radius: 20px;
+}
+.home-input:focus-visible {
+  outline: none;
+}
+
+/* rent-card  */
+.home-car-rent {
+  width: 250px;
+  height: 250px;
+}
+
+.home-car-rent img {
+  width: 250px;
+  height: 250px;
+}
+
+/*  rent card section */
+.hover-card-Rent:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
