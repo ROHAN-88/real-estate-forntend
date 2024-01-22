@@ -4,26 +4,38 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import * as Yup from "yup";
 import "./addform.css";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { addPropertyApi } from "../../lib/Property.api";
+import { useNavigate } from "react-router-dom";
 
 const AddpropertyForm = () => {
-  const mapdata = ["rent", "buy", "sell"];
+  //! navigation
+  const navigate = useNavigate();
+
+  //!type of Listing use for map
+  const mapdata = ["rent", "sell"];
 
   //!muatated
+  const queryClient = useQueryClient();
+
   const addProperty = useMutation({
     mutationKey: ["Add-Property"],
     mutationFn: (values) => addPropertyApi(values),
     onSuccess: (res) => {
-      alert("Submitted");
+      //todo error fix {error:Not being invalid}
+      queryClient.invalidateQueries("rent-detail called");
+      queryClient.invalidateQueries("sale-detail called");
+
+      navigate("/home");
     },
   });
+
   return (
     <Formik
       initialValues={{
-        propertyIamge: "",
+        propertyImage: "",
         propertyName: "",
-        price: "",
+        price: 0,
         description: "",
         location: "",
         type: "",
@@ -40,6 +52,7 @@ const AddpropertyForm = () => {
         type: Yup.string().required().oneOf(["rent", "buy", "sell"]),
       })}
       onSubmit={(values: any) => {
+        console.log(values);
         addProperty.mutate(values);
       }}
     >
@@ -65,7 +78,7 @@ const AddpropertyForm = () => {
                 {...formik.getFieldProps("propertyName")}
               />
               {formik.touched.propertyName && formik.errors.propertyName ? (
-                <div>{formik.errors.propertyName}</div>
+                <div>{formik.errors.propertyName as string}</div>
               ) : null}
             </div>
 
@@ -81,7 +94,7 @@ const AddpropertyForm = () => {
                 <InputGroup.Text>.00</InputGroup.Text>
               </InputGroup>
               {formik.touched.price && formik.errors.price ? (
-                <div>{formik.errors.price}</div>
+                <div>{formik.errors.price as string}</div>
               ) : null}
             </div>
 
@@ -95,7 +108,7 @@ const AddpropertyForm = () => {
                 {...formik.getFieldProps("location")}
               />
               {formik.touched.location && formik.errors.location ? (
-                <div>{formik.errors.location}</div>
+                <div>{formik.errors.location as string}</div>
               ) : null}
             </div>
             {/* //!TYPE */}
@@ -112,7 +125,7 @@ const AddpropertyForm = () => {
                 })}
               </Form.Select>
               {formik.touched.type && formik.errors.type ? (
-                <div>{formik.errors.type}</div>
+                <div>{formik.errors.type as string}</div>
               ) : null}
             </div>
             {/* //!Desciption */}
@@ -127,7 +140,7 @@ const AddpropertyForm = () => {
                 />
               </InputGroup>
               {formik.touched.description && formik.errors.description ? (
-                <div>{formik.errors.description}</div>
+                <div>{formik.errors.description as string}</div>
               ) : null}
             </div>
 

@@ -22,6 +22,9 @@ const Login = () => {
       const userData = res?.data?.findUser;
       localStorage.setItem("role", userData?.role);
 
+      //?setting logged in Info in LocalStorage
+      localStorage.setItem("Logged-In", "true");
+
       navigate("/home ");
     },
   });

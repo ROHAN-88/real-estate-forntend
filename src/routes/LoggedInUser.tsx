@@ -4,6 +4,7 @@ import Home from "../component/homepages/Home";
 import RentCard from "../component/RentPages/RentCard";
 import SalePage from "../component/SalesPage/SalePage";
 import AddpropertyForm from "../component/add Property Form/AddpropertyForm";
+import AllProperty from "../component/AllProperty/AllProperty";
 
 const LoggedInUser = [
   {
@@ -25,6 +26,10 @@ const LoggedInUser = [
       {
         path: "/addProperty",
         element: <AddpropertyForm />,
+      },
+      {
+        path: "/property",
+        element: <AllProperty />,
       },
     ],
   },

@@ -13,12 +13,12 @@ const RentHouseCard = () => {
       getPropertyApi({
         page: 1,
         limit: 3,
+        type: "rent",
       }),
   });
-  console.log(data);
 
   return (
-    <div style={{ paddingTop: "2rem" }}>
+    <div style={{ paddingTop: "2rem" }} className="container">
       <h3 style={{ textAlign: "center" }}>House On Rent </h3>
       <div
         className="d-flex  flex-sm-column flex-md-row justify-content-center align-items-center mt-1 mb-5 container "
@@ -29,7 +29,7 @@ const RentHouseCard = () => {
           borderRadius: "20px",
         }}
       >
-        {data?.data?.map((item: any) => {
+        {data?.data.map((item: any) => {
           return (
             <Card
               style={{ width: "18rem" }}
