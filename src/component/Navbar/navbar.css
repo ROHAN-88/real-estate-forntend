@@ -23,3 +23,23 @@
   background: none;
   border: none;
 }
+
+/*! animation Navbar Icons  */
+
+.animationHoverNav:hover {
+  animation: hoverNav 3s infinite;
+  transition: all 1s ease-in-out;
+}
+
+@keyframes hoverNav {
+  0% {
+    rotate: 180deg;
+  }
+
+  50% {
+    rotate: 360deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}

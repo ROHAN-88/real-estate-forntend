@@ -1,14 +1,23 @@
+import { useState } from "react";
+import { Button } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import addIcon from "../../assets/svg/addIcon.svg";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Popover from "react-bootstrap/Popover";
-import { FaCartArrowDown } from "react-icons/fa";
-import "./navbar.css";
-import { Button } from "react-bootstrap";
+import { AiFillBulb } from "react-icons/ai";
+import { FaCartArrowDown, FaHome } from "react-icons/fa";
+import { GiFamilyHouse } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
+import { AiTwotoneTags } from "react-icons/ai";
+import { AiOutlineDollarCircle } from "react-icons/ai";
+import "./navbar.css";
 const Navbar2 = () => {
+  //?useState for changing icons in navbar
+  const [iconHome, seticonHome] = useState(false);
+  const [iconAbout, setIconAbout] = useState(false);
+  const [iconPorperty, setIconProperty] = useState(false);
+  const [iconRent, setIconRent] = useState(false);
+  const [iconBuy, setIconBuy] = useState(false);
+
   //?navigation
   const navigate = useNavigate();
 
@@ -21,11 +30,16 @@ const Navbar2 = () => {
       className="bg-body-tertiary"
       style={{
         background: "#4682A9",
+        position: "fixed",
+        top: "0",
+        // right: "0",
+        width: "100%",
+        left: "0",
+        zIndex: "999",
       }}
-      fixed="top"
     >
       <Container fluid>
-        <Navbar.Brand href="#" className="navbar-textColor">
+        <Navbar.Brand href="#" className="navbar-textColor  ">
           LOGO
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -34,43 +48,127 @@ const Navbar2 = () => {
             {/* //?home */}
             <Nav.Link
               href="/home"
-              className="navbar-textColor after-nav m-auto"
+              className="navbar-textColor m-auto"
+              style={{
+                width: "60px",
+                textAlign: "center",
+              }}
+              onMouseOver={() => seticonHome(true)}
+              onMouseOut={() => seticonHome(false)}
             >
-              Home
+              {iconHome == true ? (
+                <FaHome
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                  }}
+                  className="animationHoverNav"
+                />
+              ) : (
+                " Home"
+              )}
             </Nav.Link>
             {/* //?About  */}
-            <Nav.Link href="#" className="navbar-textColor after-nav m-auto">
-              About
+            <Nav.Link
+              href="#"
+              className="navbar-textColor m-auto"
+              style={{
+                width: "60px",
+                textAlign: "center",
+              }}
+              onMouseOver={() => setIconAbout(true)}
+              onMouseOut={() => setIconAbout(false)}
+            >
+              {iconAbout ? (
+                <AiFillBulb
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                  }}
+                  className="animationHoverNav"
+                />
+              ) : (
+                "About"
+              )}
             </Nav.Link>
             {/* //?Rent  */}
             {role === "buyer" && (
               <Nav.Link
                 href="/rent"
-                className="navbar-textColor after-nav m-auto"
+                className="navbar-textColor  m-auto"
+                style={{
+                  width: "60px",
+                  textAlign: "center",
+                }}
+                onMouseOver={() => setIconRent(true)}
+                onMouseOut={() => setIconRent(false)}
               >
-                Rent
+                {iconRent ? (
+                  <AiTwotoneTags
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                    }}
+                    className="animationHoverNav"
+                  />
+                ) : (
+                  "Rent"
+                )}
               </Nav.Link>
             )}
             {/* //?sale */}
             {role === "buyer" && (
               <Nav.Link
                 href="/sale"
-                className="navbar-textColor after-nav m-auto"
+                className="navbar-textColor m-auto"
+                style={{
+                  width: "60px",
+                  textAlign: "center",
+                }}
+                onMouseOver={() => setIconBuy(true)}
+                onMouseOut={() => setIconBuy(false)}
               >
-                Buy
+                {iconBuy ? (
+                  <AiOutlineDollarCircle
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                    }}
+                    className="animationHoverNav"
+                  />
+                ) : (
+                  "Buy"
+                )}
               </Nav.Link>
             )}
+            {}
             {/* //?view seller Property */}
-            {role == "seller" && (
+            {role === "seller" && (
               <Nav.Link
                 href="/property"
-                className="navbar-textColor after-nav m-auto"
+                className="navbar-textColor  m-auto"
+                style={{
+                  width: "70px",
+                  textAlign: "center",
+                }}
+                onMouseOver={() => setIconProperty(true)}
+                onMouseOut={() => setIconProperty(false)}
               >
-                Property
+                {iconPorperty ? (
+                  <GiFamilyHouse
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                    }}
+                    className="animationHoverNav"
+                  />
+                ) : (
+                  "Property"
+                )}
               </Nav.Link>
             )}
             {/* //?Button add property  */}
-            {role == "seller" && (
+            {role === "seller" && (
               <Nav.Link className="navbar-textColor font-weight-bold m-auto">
                 <Button onClick={() => navigate("/addProperty")}>
                   AddProperty
@@ -78,7 +176,7 @@ const Navbar2 = () => {
               </Nav.Link>
             )}
             {/* //?Button Cart  */}
-            {role == "buyer" && (
+            {role === "buyer" && (
               <Nav.Link className="navbar-textColor font-weight-bold m-auto">
                 <Button
                   style={{

@@ -20,6 +20,8 @@ const RentCard = () => {
   //?getting the role from the localStorage
   const role = localStorage.getItem("role");
 
+  //!todo :- Add DRAFT
+
   return (
     <>
       {role === "buyer" && (
@@ -40,11 +42,7 @@ const RentCard = () => {
                       <ListGroup.Item>Type:{item.type}</ListGroup.Item>
                     </ListGroup>
                     <Card.Body>
-                      <Button style={{ padding: "0.5 1rem" }}>
-                        <a href="#" style={{ color: "white" }}>
-                          View
-                        </a>
-                      </Button>
+                      <Button style={{ padding: "0.5 1rem" }}>View</Button>
                     </Card.Body>
                   </Card>
                 </Col>

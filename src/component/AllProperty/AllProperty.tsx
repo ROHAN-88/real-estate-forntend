@@ -1,6 +1,6 @@
-import React from "react";
-import { useQuery } from "react-query";
-import { sellerPropertyApi } from "../../lib/Property.api";
+import React, { useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { deleteProductApi, sellerPropertyApi } from "../../lib/Property.api";
 import {
   Button,
   Col,
@@ -12,22 +12,52 @@ import {
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import HouseCard from "../../assets/house.jpg";
+import { MdDelete } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const AllProperty = () => {
+  //?naviagtion
+  const navigate = useNavigate();
   //?query call
   const { data } = useQuery({
     queryKey: ["Data-property"],
-    //todo call the api with the seller ID only
     queryFn: () => sellerPropertyApi(),
   });
+
+  //?mutation
+  const query = useQueryClient();
+  const { mutate } = useMutation({
+    mutationKey: ["Delete-Product "],
+    mutationFn: (id) => deleteProductApi(id),
+    onSuccess: (res) => {
+      query.invalidateQueries("Data-property");
+    },
+  });
+
+  //?useState
+  const [productId, setProductId] = useState();
+
   //?popover of the bootstrap
   const popoverBottom = (
     <Popover id="popover-positioned-bottom" title="Popover bottom">
       <div className="px-4">
         <p className="text-center">Do you Want to Delete?</p>
         <div className="d-flex justify-content-center align-items-center ">
-          <Button className="mr-3">Yes</Button>
-          <Button>No</Button>
+          <Button
+            className="mr-3"
+            onClick={() => {
+              mutate(productId);
+            }}
+          >
+            Yes
+          </Button>
+          <Button
+            aria-label="Close"
+            className="icon-button"
+            onClick={() => document.body.click()}
+          >
+            No
+          </Button>
         </div>
       </div>
     </Popover>
@@ -52,15 +82,26 @@ const AllProperty = () => {
                   </ListGroup.Item>
                 </ListGroup>
                 <Card.Body className="d-flex justify-content-end align-items-center ">
-                  <Button className="mr-3">View</Button>
+                  <Button
+                    className="mr-3"
+                    onClick={() => navigate(`/property/detail/${item._id}`)}
+                  >
+                    View
+                  </Button>
 
                   {/* //react popover  */}
                   <OverlayTrigger
                     trigger="click"
                     placement="bottom"
                     overlay={popoverBottom}
+                    rootClose
                   >
-                    <Button variant="danger">Delete</Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => setProductId(item._id)}
+                    >
+                      <MdDelete style={{ fontSize: "25px" }} />
+                    </Button>
                   </OverlayTrigger>
                 </Card.Body>
               </Card>

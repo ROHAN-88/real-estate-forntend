@@ -12,3 +12,10 @@ export const addPropertyApi = async (values: any) => {
 export const sellerPropertyApi = async () => {
   return await $axios.get("/properties/getSellerProperties");
 };
+
+export const deleteProductApi = async (productId: any) => {
+  return await $axios.delete(`/properties/deleteProperty/${productId}`);
+};
+export const getPropertyByIdApi = async (id: any) => {
+  return await $axios.get(`/properties/getDetailId/${id}`);
+};

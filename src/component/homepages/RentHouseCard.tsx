@@ -1,12 +1,16 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import HouseCard from "../../assets/house.jpg";
 import "./home.css";
 import { useQuery } from "react-query";
 import { getPropertyApi } from "../../lib/Property.api";
+import { useNavigate } from "react-router-dom";
 const RentHouseCard = () => {
+  //?naviagtion
+  const navigate = useNavigate();
+  //?Query
   const { data } = useQuery({
     queryKey: ["rent-detail called"],
     queryFn: () =>
@@ -18,7 +22,11 @@ const RentHouseCard = () => {
   });
 
   return (
-    <div style={{ paddingTop: "2rem" }} className="container">
+    <Container
+      style={{ paddingTop: "2rem" }}
+      className="container"
+      onClick={() => navigate("/rent")}
+    >
       <h3 style={{ textAlign: "center" }}>House On Rent </h3>
       <div
         className="d-flex  flex-sm-column flex-md-row justify-content-center align-items-center mt-1 mb-5 container "
@@ -56,7 +64,7 @@ const RentHouseCard = () => {
           );
         })}
       </div>
-    </div>
+    </Container>
   );
 };
 
