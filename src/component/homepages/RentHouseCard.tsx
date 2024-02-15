@@ -46,20 +46,20 @@ const RentHouseCard = () => {
             >
               <Card.Img variant="top" src={HouseCard} />
               <Card.Body>
-                <Card.Title>{item.propertyName}</Card.Title>
-                <Card.Text>{item.description}</Card.Text>
+                <Card.Title>{item?.propertyName}</Card.Title>
+                <Card.Text>{item?.description.slice(0, 40) + "..."}</Card.Text>
               </Card.Body>
               <ListGroup className="list-group-flush">
-                <ListGroup.Item>Location : {item.location}</ListGroup.Item>
-                <ListGroup.Item>Price:${item.price}</ListGroup.Item>
+                <ListGroup.Item>Location : {item?.location}</ListGroup.Item>
+                <ListGroup.Item>Price:${item?.price}</ListGroup.Item>
               </ListGroup>
-              <Card.Body>
+              {/* <Card.Body>
                 <Button style={{ padding: "0.5 1rem" }}>
                   <a href="#" style={{ color: "white" }}>
                     View
                   </a>
                 </Button>
-              </Card.Body>
+              </Card.Body> */}
             </Card>
           );
         })}

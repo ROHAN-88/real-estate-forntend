@@ -7,6 +7,7 @@ import "./addform.css";
 import { useMutation, useQueryClient } from "react-query";
 import { addPropertyApi } from "../../lib/Property.api";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const AddpropertyForm = () => {
   //! navigation

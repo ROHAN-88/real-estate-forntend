@@ -3,20 +3,20 @@ import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPropertyByIdApi } from "../../lib/Property.api";
 import { Button, Col, Container, Row } from "react-bootstrap";
+import { FaCartArrowDown } from "react-icons/fa";
 import "./propertyDetail.css";
 import { FaArrowLeft } from "react-icons/fa";
-
+//?css for button of add to cart
+import "./properyDetailButton.css";
 const PropertyDetail = () => {
   //?Taking the Id from the url
   const prams = useParams();
-  const propetyId = prams.id;
-
+  const propertyId = prams.id;
   //?calling the query for property through id
   const { data } = useQuery({
     queryKey: ["Property-Detail-id"],
-    queryFn: () => getPropertyByIdApi(propetyId),
+    queryFn: () => getPropertyByIdApi(propertyId),
   });
-  // console.log(data);
   const propertydata = data?.data;
 
   const navigate = useNavigate();
@@ -24,13 +24,13 @@ const PropertyDetail = () => {
     <div style={{ marginTop: "5rem" }}>
       <Button
         variant="light"
-        className="d-flex  align-items-center "
+        className="d-flex  align-items-center ml-3 "
         style={{ gap: "0.3rem" }}
         onClick={() => navigate("/home")}
       >
         <FaArrowLeft /> Back to Home
       </Button>
-      <Container className="border border-secondary rounded mt-4  ">
+      <Container className="rounded mt-4   box-shadow-property-detail">
         <Row>
           <Col className="py-5 pl-5 d-flex " style={{ gap: "1rem" }}>
             <img
@@ -65,6 +65,12 @@ const PropertyDetail = () => {
             <h5>${propertydata?.price}</h5>
 
             <h4>{propertydata?.description}</h4>
+            <button
+              className="btn-propertyDetail fifth"
+              style={{ fontWeight: "500" }}
+            >
+              <FaCartArrowDown /> ADD To Cart
+            </button>
           </Col>
         </Row>
       </Container>

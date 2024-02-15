@@ -5,8 +5,11 @@ import ListGroup from "react-bootstrap/ListGroup";
 import HouseCard from "../../assets/house.jpg";
 import { useQuery } from "react-query";
 import { getPropertyApi } from "../../lib/Property.api";
+import { useNavigate } from "react-router-dom";
 
 const SalePage = () => {
+  const navigate = useNavigate();
+
   //?Query
   const { data } = useQuery({
     queryKey: ["Get-property-detail"],
@@ -22,7 +25,6 @@ const SalePage = () => {
     <>
       <Container onClick={() => console.log("first")}>
         <Row>
-          {}
           {/* //todo map the query   */}
           {propertyData?.map((item: any) => {
             return (
@@ -30,18 +32,23 @@ const SalePage = () => {
                 <Card style={{ width: "18rem" }} className="hover-card-Rent">
                   <Card.Img variant="top" src={HouseCard} />
                   <Card.Body>
-                    <Card.Title>{item.propertyName}</Card.Title>
+                    <Card.Title>{item?.propertyName}</Card.Title>
                     <Card.Text>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
+                      {item?.description.slice(0, 40) + "..."}
                     </Card.Text>
                   </Card.Body>
                   <ListGroup className="list-group-flush">
-                    <ListGroup.Item>Location :{item.location}</ListGroup.Item>
-                    <ListGroup.Item>Price:${item.price}</ListGroup.Item>
+                    <ListGroup.Item>Location: {item?.location}</ListGroup.Item>
+                    <ListGroup.Item>Price: ${item?.price}</ListGroup.Item>
+                    <ListGroup.Item>Type: {item?.type}</ListGroup.Item>
                   </ListGroup>
                   <Card.Body>
-                    <Button style={{ padding: "0.5 1rem" }}>View</Button>
+                    <Button
+                      style={{ padding: "0.5 1rem" }}
+                      onClick={() => navigate(`/property/detail/${item._id}`)}
+                    >
+                      View
+                    </Button>
                   </Card.Body>
                 </Card>
               </Col>

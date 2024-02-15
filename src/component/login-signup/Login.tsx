@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useMutation } from "react-query";
 import { loginApi } from "../../lib/LoginSignup.api";
+import { LoginValue } from "../../lib/Types/interfaceType";
 const Login = () => {
   //!navigation
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const Login = () => {
   //!react-query using Mutation
   const login = useMutation({
     mutationKey: ["login-Key"],
-    mutationFn: (values) => loginApi(values),
+    mutationFn: (values: LoginValue) => loginApi(values),
     onSuccess: (res) => {
       //?Setting the access token in localStorage
       const accesstoken = res?.data?.accesstoken;
@@ -36,7 +37,7 @@ const Login = () => {
         email: Yup.string().email("Invalid email address").required("Required"),
         password: Yup.string().min(8).max(30),
       })}
-      onSubmit={(values: any) => {
+      onSubmit={(values: LoginValue) => {
         login.mutate(values);
       }}
     >

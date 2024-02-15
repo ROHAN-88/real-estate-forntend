@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useMutation } from "react-query";
 import { signUpApi } from "../../lib/LoginSignup.api";
+import { SignUpValue } from "../../lib/Types/interfaceType";
 
 const Signup = () => {
   //!Navigation function
@@ -17,27 +18,33 @@ const Signup = () => {
 
   const { mutate, isLoading } = useMutation({
     mutationKey: ["Sigup-Key"],
-    mutationFn: (values) => signUpApi(values),
+    mutationFn: (values: SignUpValue) => signUpApi(values),
     onSuccess: (res) => {
       navigate("/login");
     },
   });
+
+  //!Initial values
+  const InitialValues: SignUpValue = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    dob: new Date(),
+    gender: "",
+    role: "",
+    number: "",
+  };
+
   if (isLoading) {
-    return <h1>LOADINHG...</h1>;
+    // Need of a loader
+    return <h1>LOADING...</h1>;
   }
 
   return (
     <Formik
-      initialValues={{
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        dob: "",
-        gender: "",
-        role: "",
-      }}
+      initialValues={InitialValues}
       validationSchema={Yup.object({
         firstName: Yup.string().required("FirstName is required"),
         lastName: Yup.string().required("LastName is required"),
@@ -47,6 +54,7 @@ const Signup = () => {
           [Yup.ref("password")],
           "Passwords must match"
         ),
+
         gender: Yup.string()
           .oneOf(["male", "female"])
           .required("Please specify your gender"),
@@ -56,8 +64,10 @@ const Signup = () => {
         role: Yup.string()
           .required("role is required")
           .oneOf(["buyer", "seller"]),
+        number: Yup.string().required("Phone Number is Required"),
       })}
-      onSubmit={(values: any) => {
+      onSubmit={(values) => {
+        delete values?.confirmPassword;
         mutate(values);
       }}
     >
@@ -169,7 +179,19 @@ const Signup = () => {
                 <div>{formik.errors.dob}</div>
               ) : null}
             </div>
-
+            {/* Phone Number  */}
+            <div style={{ width: "100%" }}>
+              <input
+                placeholder="Phone Number"
+                style={{
+                  width: "100%",
+                }}
+                {...formik.getFieldProps("number")}
+              />
+              {formik.touched.number && formik.errors.number ? (
+                <div>{formik.errors.number}</div>
+              ) : null}
+            </div>
             {/* gender  */}
             <div style={{ width: "100%" }}>
               <Form.Select

@@ -5,7 +5,10 @@ import ListGroup from "react-bootstrap/ListGroup";
 import HouseCard from "../../assets/house.jpg";
 import { useQuery } from "react-query";
 import { getPropertyApi } from "../../lib/Property.api";
+import { useNavigate } from "react-router-dom";
 const RentCard = () => {
+  //?navigation
+  const navigate = useNavigate();
   //?Query
   const { data } = useQuery({
     queryKey: ["Get-property-detail"],
@@ -34,7 +37,9 @@ const RentCard = () => {
                     <Card.Img variant="top" src={HouseCard} />
                     <Card.Body>
                       <Card.Title>{item.propertyName}</Card.Title>
-                      <Card.Text>{item.description}</Card.Text>
+                      <Card.Text>
+                        {item?.description.slice(0, 40) + "..."}
+                      </Card.Text>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
                       <ListGroup.Item> Location : "Shakhamul"</ListGroup.Item>
@@ -42,7 +47,12 @@ const RentCard = () => {
                       <ListGroup.Item>Type:{item.type}</ListGroup.Item>
                     </ListGroup>
                     <Card.Body>
-                      <Button style={{ padding: "0.5 1rem" }}>View</Button>
+                      <Button
+                        style={{ padding: "0.5 1rem" }}
+                        onClick={() => navigate(`/property/detail/${item._id}`)}
+                      >
+                        View
+                      </Button>
                     </Card.Body>
                   </Card>
                 </Col>

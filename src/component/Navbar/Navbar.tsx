@@ -39,7 +39,7 @@ const Navbar2 = () => {
       }}
     >
       <Container fluid>
-        <Navbar.Brand href="#" className="navbar-textColor  ">
+        <Navbar.Brand href="/home" className="navbar-textColor  ">
           LOGO
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
